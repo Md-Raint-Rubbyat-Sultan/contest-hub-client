@@ -4,6 +4,8 @@ import Para from "../../Utils/Para";
 import "./Banner.css";
 import { useCallback, useEffect, useState } from "react";
 import H3Alt from "../../Utils/H3Alt";
+import AOS from "aos";
+AOS.init();
 
 const images = [
   {
@@ -36,7 +38,11 @@ const Banner = () => {
   }, [goToNext]);
 
   return (
-    <div>
+    <div
+      data-aos="slide-up"
+      data-aos-duration="5000"
+      data-aos-easing="ease-in-out"
+    >
       <div className=" flex flex-col lg:flex-row items-center gap-10">
         <div className="space-y-8 flex-1">
           <H1Prime custom={"text-[#283618]"}>

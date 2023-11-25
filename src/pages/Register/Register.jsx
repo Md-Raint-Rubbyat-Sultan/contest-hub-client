@@ -9,6 +9,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { useState } from "react";
 import { ImSpinner9 } from "react-icons/im";
+import HelmetTitle from "../../components/Shared/HelmetTitle/HelmetTitle";
 
 const Register = () => {
   const { createUser, updateUserProfile, setIsLoading, loginWithGoogle } =
@@ -104,6 +105,7 @@ const Register = () => {
         backgroundPosition: "center",
       }}
     >
+      <HelmetTitle title="Contest Hub | Register" />
       <div className="flex-1 w-full hidden lg:block">
         <figure>
           <img
