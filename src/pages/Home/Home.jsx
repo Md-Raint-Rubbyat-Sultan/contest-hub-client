@@ -1,4 +1,6 @@
+import Advertises from "../../components/Advertises/Advertises";
 import Banner from "../../components/Home/Banner/Banner";
+import BestCreator from "../../components/Home/BestCreator/BestCreator";
 import PopularContest from "../../components/Home/PopularContest/PopularContest";
 import HelmetTitle from "../../components/Shared/HelmetTitle/HelmetTitle";
 
@@ -21,6 +23,12 @@ const Home = () => {
           backgroundSize: "cover",
         }}
       ></div>
+      <div>
+        <Advertises />
+      </div>
+      <div>
+        <BestCreator />
+      </div>
     </div>
   );
 };
