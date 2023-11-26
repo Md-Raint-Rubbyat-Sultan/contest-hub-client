@@ -1,4 +1,4 @@
-import Advertises from "../../components/Advertises/Advertises";
+import Advertises from "../../components/Home/Advertises/Advertises";
 import Banner from "../../components/Home/Banner/Banner";
 import BestCreator from "../../components/Home/BestCreator/BestCreator";
 import PopularContest from "../../components/Home/PopularContest/PopularContest";
@@ -6,7 +6,7 @@ import HelmetTitle from "../../components/Shared/HelmetTitle/HelmetTitle";
 
 const Home = () => {
   return (
-    <div className="overflow-hidden space-y-24">
+    <div className="overflow-hidden space-y-24 mb-24">
       <HelmetTitle title="Contest Hub | Home" />
       <div>
         <Banner />

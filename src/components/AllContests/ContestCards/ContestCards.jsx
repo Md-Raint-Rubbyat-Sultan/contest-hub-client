@@ -1,14 +1,14 @@
-import PropTypes from "prop-types";
 import { Button, Card } from "flowbite-react";
-import Para from "../../Utils/Para";
+import PropTypes from "prop-types";
 import H4Prime from "../../Utils/H4Prime";
+import Para from "../../Utils/Para";
 import MutedPara from "../../Utils/MutedPara";
 import { Link } from "react-router-dom";
 
-const PopularCards = ({ item }) => {
-  const { _id, name, img, participation_count, contest_description } = item;
+const ContestCards = ({ contest }) => {
+  const { _id, name, img, participation_count, contest_description } = contest;
   return (
-    <Card className="w-full h-full" imgSrc={img} horizontal>
+    <Card className="w-full" imgAlt={name} imgSrc={img}>
       <H4Prime custom={"text-[#283618]"}>{name}</H4Prime>
       <Para>participators: {participation_count}</Para>
       <MutedPara>{contest_description.slice(0, 150)}...</MutedPara>
@@ -21,8 +21,8 @@ const PopularCards = ({ item }) => {
   );
 };
 
-PopularCards.propTypes = {
-  item: PropTypes.object.isRequired,
+ContestCards.propTypes = {
+  contest: PropTypes.object.isRequired,
 };
 
-export default PopularCards;
+export default ContestCards;

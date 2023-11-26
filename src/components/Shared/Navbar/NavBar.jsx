@@ -83,7 +83,7 @@ const NavBar = () => {
             Home
           </NavLink>
           <NavLink
-            to={"/all-contest"}
+            to={"/all-contests/?category=Article"}
             className={({ isActive }) =>
               isActive
                 ? "pb-2 text-xl text-[#DDA15E]"
