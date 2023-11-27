@@ -8,9 +8,7 @@ import {
   Textarea,
 } from "flowbite-react";
 import H2Prime from "../../../components/Utils/H2Prime";
-import useCategories from "../../../hooks/useCategories";
 import useAuth from "../../../hooks/useAuth";
-import MySpinner from "../../../components/Shared/Spinner/MySpinner";
 import { useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 import { toast } from "react-hot-toast";
@@ -23,7 +21,6 @@ const AddContest = () => {
   const [loading, setLoading] = useState(() => false);
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const [category, isPending] = useCategories();
   const {
     register,
     handleSubmit,
@@ -100,8 +97,6 @@ const AddContest = () => {
     }
   };
 
-  if (isPending) return <MySpinner />;
-
   return (
     <div className="space-y-6 my-6">
       <H2Prime custom={"text-center text-[#283618]"}>Add A New Contest</H2Prime>
@@ -137,11 +132,10 @@ const AddContest = () => {
                 <option value="default" disabled>
                   Choose category
                 </option>
-                {category?.map((cate, idx) => (
-                  <option key={idx} value={cate}>
-                    {cate}
-                  </option>
-                ))}
+                <option value="Article">Article</option>
+                <option value="Medical Contest">Medical Contest</option>
+                <option value="Business Contest">Business Contest</option>
+                <option value="Games">Games</option>
               </Select>
             </div>
           </div>
