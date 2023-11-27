@@ -10,6 +10,7 @@ import PrivetRoute from "./PrivetRoute";
 import DashBoard from "../Layouts/DashBoard";
 import AllUsers from "../pages/DashBoard/AllUsers/AllUsers";
 import MyContests from "../pages/DashBoard/MyContests/MyContests";
+import AddContest from "../pages/DashBoard/AddContest/AddContest";
 
 export const router = createBrowserRouter([
   {
@@ -59,6 +60,10 @@ export const router = createBrowserRouter([
       {
         path: "my-contest",
         element: <MyContests />,
+      },
+      {
+        path: "add-contest",
+        element: <AddContest />,
       },
       // admin routes
       {

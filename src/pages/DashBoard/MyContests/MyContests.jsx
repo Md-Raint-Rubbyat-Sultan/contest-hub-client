@@ -7,7 +7,7 @@ const MyContests = () => {
   const { user: hostName } = useAuth();
 
   return (
-    <div className="space-y-24 mb-24">
+    <div className="space-y-16 mb-24">
       <H2Prime custom={"text-center text-[#283618]"}>
         Welcome {hostName?.displayName}!
       </H2Prime>

@@ -12,6 +12,7 @@ const ConfirmedContests = () => {
     <div className="overflow-x-auto">
       <Table>
         <Table.Head>
+          <Table.HeadCell>#</Table.HeadCell>
           <Table.HeadCell>Contest name</Table.HeadCell>
           <Table.HeadCell>Status</Table.HeadCell>
           <Table.HeadCell>Category</Table.HeadCell>
@@ -19,11 +20,12 @@ const ConfirmedContests = () => {
           <Table.HeadCell>Action</Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">
-          {confirmedContestFoHost?.map((contest) => (
+          {confirmedContestFoHost?.map((contest, idx) => (
             <Table.Row
               key={contest?._id}
               className="bg-white dark:border-gray-700 dark:bg-gray-800"
             >
+              <Table.Cell>{idx + 1}</Table.Cell>
               <Table.Cell>{contest?.name}</Table.Cell>
               <Table.Cell>{contest?.approved}</Table.Cell>
               <Table.Cell>{contest?.category}</Table.Cell>
