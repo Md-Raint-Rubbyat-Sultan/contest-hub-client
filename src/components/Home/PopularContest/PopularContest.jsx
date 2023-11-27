@@ -7,7 +7,7 @@ const PopularContest = () => {
   const [popular, isPending] = usePopularContests();
 
   if (isPending) return <MySpinner />;
-  console.log(popular);
+  // console.log(popular);
 
   return (
     <div className="space-y-10">

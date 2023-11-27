@@ -2,6 +2,7 @@ import axios from "axios";
 import { useContext, useEffect } from "react";
 import { toast } from "react-hot-toast";
 import { AuthContext } from "../providers/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const axiosSecure = axios.create({
   baseURL: "http://localhost:5000/api/v1",
@@ -10,6 +11,7 @@ const axiosSecure = axios.create({
 
 const useAxiosSecure = () => {
   const { logoutUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     let mount = true;
@@ -25,7 +27,7 @@ const useAxiosSecure = () => {
           ) {
             logoutUser()
               .then(() => {
-                console.log("error from logout");
+                navigate("/");
                 axiosSecure
                   .post("/logout", {})
                   .then(() => {
@@ -46,7 +48,7 @@ const useAxiosSecure = () => {
       );
     }
     return () => (mount = false);
-  }, [logoutUser]);
+  }, [logoutUser, navigate]);
 
   return axiosSecure;
 };

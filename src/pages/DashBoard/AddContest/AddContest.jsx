@@ -15,12 +15,14 @@ import { useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 import { toast } from "react-hot-toast";
 import axios from "axios";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const imageHostingKey = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 
 const AddContest = () => {
   const [loading, setLoading] = useState(() => false);
   const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
   const [category, isPending] = useCategories();
   const {
     register,
@@ -73,6 +75,7 @@ const AddContest = () => {
     const image = { image: contestData.img[0] };
 
     try {
+      // hosting image
       const { data: imageURL } = await axios.post(
         `https://api.imgbb.com/1/upload?key=${imageHostingKey}`,
         image,
@@ -80,9 +83,16 @@ const AddContest = () => {
           headers: { "content-type": "multipart/form-data" },
         }
       );
+
+      //   posing data
+      await axiosSecure.post("/contest/host/add-contest", {
+        ...contestInfo,
+        img: imageURL.data.display_url,
+      });
+
       reset();
-      console.log(imageURL.data.display_url);
-      console.log({ ...contestInfo, img: imageURL.data.display_url });
+
+      toast.success(`${contestData.name} is now pending!`);
     } catch (err) {
       console.log(err);
     } finally {
@@ -120,10 +130,13 @@ const AddContest = () => {
                 <Label htmlFor="categories" value="Category" />
               </div>
               <Select
-                defaultValue={category[0]}
+                defaultValue={"default"}
                 id="categories"
-                {...register("category")}
+                {...register("category", { required: true })}
               >
+                <option value="default" disabled>
+                  Choose category
+                </option>
                 {category?.map((cate, idx) => (
                   <option key={idx} value={cate}>
                     {cate}

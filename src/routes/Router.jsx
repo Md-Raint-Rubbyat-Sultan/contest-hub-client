@@ -11,6 +11,7 @@ import DashBoard from "../Layouts/DashBoard";
 import AllUsers from "../pages/DashBoard/AllUsers/AllUsers";
 import MyContests from "../pages/DashBoard/MyContests/MyContests";
 import AddContest from "../pages/DashBoard/AddContest/AddContest";
+import ManageContests from "../pages/DashBoard/ManageContests/ManageContests";
 
 export const router = createBrowserRouter([
   {
@@ -69,6 +70,10 @@ export const router = createBrowserRouter([
       {
         path: "manage-user",
         element: <AllUsers />,
+      },
+      {
+        path: "manage-contests",
+        element: <ManageContests />,
       },
     ],
   },

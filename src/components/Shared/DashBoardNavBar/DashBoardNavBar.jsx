@@ -41,7 +41,7 @@ const DashBoardNavBar = () => {
               className={({ isActive }) =>
                 (isActive ? "text-white" : "") + " flex items-center gap-2"
               }
-              to={"/dashboard/manage-contest"}
+              to={"/dashboard/manage-contests"}
             >
               <FaTrophy />
               Manage Contest

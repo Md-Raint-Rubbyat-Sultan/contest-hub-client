@@ -15,6 +15,7 @@ const ConfirmedContests = () => {
           <Table.HeadCell>#</Table.HeadCell>
           <Table.HeadCell>Contest name</Table.HeadCell>
           <Table.HeadCell>Status</Table.HeadCell>
+          <Table.HeadCell>winner</Table.HeadCell>
           <Table.HeadCell>Category</Table.HeadCell>
           <Table.HeadCell>Price</Table.HeadCell>
           <Table.HeadCell>Action</Table.HeadCell>
@@ -28,6 +29,7 @@ const ConfirmedContests = () => {
               <Table.Cell>{idx + 1}</Table.Cell>
               <Table.Cell>{contest?.name}</Table.Cell>
               <Table.Cell>{contest?.approved}</Table.Cell>
+              <Table.Cell>{contest?.winner?.name}</Table.Cell>
               <Table.Cell>{contest?.category}</Table.Cell>
               <Table.Cell>$ {contest?.price}</Table.Cell>
               <Table.Cell>

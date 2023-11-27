@@ -8,7 +8,7 @@ const Advertises = () => {
   if (isPending) return <MySpinner />;
 
   const winners = popular?.filter((winner) => winner?.winner?.name !== "none");
-  console.log(winners);
+  // console.log(winners);
 
   return (
     <div className="flex items-center">
