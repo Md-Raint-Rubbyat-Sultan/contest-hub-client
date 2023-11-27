@@ -1,11 +1,11 @@
 import { Button, Table } from "flowbite-react";
 import { useState } from "react";
-import usePendingContests from "../../../hooks/usePendingContests";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import MySpinner from "../../Shared/Spinner/MySpinner";
 import { FaCheckSquare, FaSpinner } from "react-icons/fa";
 import { FaTrashCan } from "react-icons/fa6";
 import useAllPendingContests from "../../../hooks/useAllPendingContests";
+import Swal from "sweetalert2";
 
 const Pending = () => {
   const [loading, setLoading] = useState(() => false);
@@ -14,7 +14,38 @@ const Pending = () => {
 
   if (isPending) return <MySpinner />;
 
-  //   console.log(allPendingContests);
+  const handelDelete = (id) => {
+    setLoading(() => true);
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#283618",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await axiosSecure.delete(`/contest/host/delete-pending/${id}`);
+          refetch();
+          Swal.fire({
+            position: "center",
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        } catch (err) {
+          console.log(err);
+        } finally {
+          setLoading(() => false);
+        }
+      }
+    });
+  };
 
   return (
     <div className="overflow-x-auto">
@@ -50,7 +81,10 @@ const Pending = () => {
                     <FaSpinner className="animate-spin" />
                   </Button>
                 ) : (
-                  <Button color="failure">
+                  <Button
+                    onClick={() => handelDelete(pending?._id)}
+                    color="failure"
+                  >
                     <FaTrashCan />
                   </Button>
                 )}
