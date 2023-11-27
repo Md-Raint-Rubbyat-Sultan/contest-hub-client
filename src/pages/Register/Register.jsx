@@ -58,6 +58,7 @@ const Register = () => {
           reset();
           navigate(location?.state || "/", { replace: true });
           setProcess(() => false);
+          toast.success("Registered!");
         }
       }
     } catch (error) {
@@ -85,6 +86,7 @@ const Register = () => {
         });
         if (data) {
           navigate(location?.state || "/", { replace: true });
+          toast.success("Logged In!");
         }
       }
     } catch (error) {

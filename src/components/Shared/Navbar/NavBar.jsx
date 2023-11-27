@@ -60,7 +60,12 @@ const NavBar = () => {
                   {user?.email}
                 </span>
               </Dropdown.Header>
-              <Dropdown.Item>Dashboard</Dropdown.Item>
+              <NavLink
+                to={"/dashboard/manage-user"}
+                className={({ isActive }) => (isActive ? "text-[#DDA15E]" : "")}
+              >
+                <Dropdown.Item>Dashboard</Dropdown.Item>
+              </NavLink>
               <Dropdown.Divider />
               <Dropdown.Item onClick={handelLogout}>
                 <Link to={"/"} className="flex items-center gap-4">

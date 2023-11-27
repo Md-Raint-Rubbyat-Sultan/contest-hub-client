@@ -7,10 +7,14 @@ import H2Prime from "../../components/Utils/H2Prime";
 import Para from "../../components/Utils/Para";
 import { Button } from "flowbite-react";
 import Counter from "../../components/ContestDetail/Counter/Counter";
+import useIsAdmin from "../../hooks/useIsAdmin";
+import useIsHost from "../../hooks/useIsHost";
 
 const ContestDetails = () => {
   const id = useParams();
   const axiosSecure = useAxiosSecure();
+  const [isAdmin] = useIsAdmin();
+  const [isHost] = useIsHost();
 
   const { isPending, data: contest } = useQuery({
     queryKey: ["single-contest"],
@@ -39,7 +43,7 @@ const ContestDetails = () => {
     category,
   } = contest;
 
-  console.log(winner);
+  // console.log(winner);
 
   return (
     <div className="space-y-24 mb-24">
@@ -60,12 +64,32 @@ const ContestDetails = () => {
             <span className="font-bold">Participants:</span>{" "}
             {participation_count}
           </Para>
-          <Para custom={"flex items-center gap-2"}>
+          {winner?.name !== "none" && (
+            <div className="py-4 flex items-center justify-start gap-3">
+              <figure>
+                <img
+                  className="w-20 h-20 rounded-full"
+                  src={winner?.img}
+                  alt={winner?.name}
+                />
+              </figure>
+              <div>
+                <Para custom={"font-bold"}>{winner?.name}</Para>
+                <Para custom={"text-[#DDA15E] font-bold"}>Winner</Para>
+              </div>
+            </div>
+          )}
+          <Para custom={"flex flex-wrap items-center gap-2"}>
             <span className="font-bold">Time Left:</span>
             <Counter date={date} />
           </Para>
           <Link className="inline-block mt-8">
-            <Button color="success" disabled={winner?.name !== "none"}>
+            <Button
+              color="success"
+              disabled={
+                winner?.name !== "none" || isAdmin || isHost ? true : false
+              }
+            >
               Registration
             </Button>
           </Link>
@@ -78,7 +102,7 @@ const ContestDetails = () => {
           />
         </figure>
       </div>
-      <div>
+      <div className="space-y-3">
         <Para>
           <span className="font-bold">Task:</span> {task}
         </Para>

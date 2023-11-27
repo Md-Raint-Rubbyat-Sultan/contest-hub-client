@@ -5,6 +5,7 @@ import "./Banner.css";
 import { useCallback, useEffect, useState } from "react";
 import H3Alt from "../../Utils/H3Alt";
 import AOS from "aos";
+import { Link } from "react-router-dom";
 AOS.init();
 
 const images = [
@@ -49,14 +50,15 @@ const Banner = () => {
             Make your career more magnificent with the contest!
           </H1Prime>
           <Para>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo
-            sint, consectetur perferendis velit aperiam aliquam cumque omnis
-            distinctio libero. Ex ipsam animi non deleniti inventore velit
-            soluta dolores beatae maiores.
+            Ignite Your Passion for Winning! Explore Exciting Challenges, Show
+            Your Skills, and Win Prizes on Our Vibrant Platform. Join Now for a
+            World of Competitions and Fun
           </Para>
-          <Button color="success" className="text-[#FEFAE0]">
-            Our Contest
-          </Button>
+          <Link to={"/all-contests/?category=Article"} className="block">
+            <Button color="success" className="text-[#FEFAE0]">
+              Our Contest
+            </Button>
+          </Link>
         </div>
         <div className="flex-1 overflow-hidden relative bannerImg">
           <figure>

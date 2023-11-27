@@ -7,6 +7,8 @@ import Register from "../pages/Register/Register";
 import AllContest from "../pages/AllContest/AllContest";
 import ContestDetails from "../pages/ContestDetails/ContestDetails";
 import PrivetRoute from "./PrivetRoute";
+import DashBoard from "../Layouts/DashBoard";
+import AllUsers from "../pages/DashBoard/AllUsers/AllUsers";
 
 export const router = createBrowserRouter([
   {
@@ -39,5 +41,24 @@ export const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivetRoute>
+        <DashBoard />
+      </PrivetRoute>
+    ),
+    children: [
+      // user routes
+      {
+        path: "user-profile",
+      },
+      // admin routes
+      {
+        path: "manage-user",
+        element: <AllUsers />,
+      },
+    ],
   },
 ]);

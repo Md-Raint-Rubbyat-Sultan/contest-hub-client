@@ -41,6 +41,7 @@ const Login = () => {
         if (data) {
           reset();
           navigate(location?.state || "/", { replace: true });
+          toast.success("Logged In!");
           setProcess(() => false);
         }
       }
@@ -68,6 +69,7 @@ const Login = () => {
         });
         if (data) {
           navigate(location?.state || "/", { replace: true });
+          toast.success("Logged In!");
         }
       }
     } catch (error) {
