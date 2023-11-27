@@ -68,7 +68,7 @@ const AllContest = () => {
           ))
         ) : (
           <H3Prime custom={"font-medium text-center text-[#283618] h-screen"}>
-            No Food Found!
+            No Contest Found!
           </H3Prime>
         )}
       </div>
