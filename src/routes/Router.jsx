@@ -9,6 +9,7 @@ import ContestDetails from "../pages/ContestDetails/ContestDetails";
 import PrivetRoute from "./PrivetRoute";
 import DashBoard from "../Layouts/DashBoard";
 import AllUsers from "../pages/DashBoard/AllUsers/AllUsers";
+import MyContests from "../pages/DashBoard/MyContests/MyContests";
 
 export const router = createBrowserRouter([
   {
@@ -53,6 +54,11 @@ export const router = createBrowserRouter([
       // user routes
       {
         path: "user-profile",
+      },
+      // host routes
+      {
+        path: "my-contest",
+        element: <MyContests />,
       },
       // admin routes
       {

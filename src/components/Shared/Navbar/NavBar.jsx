@@ -61,7 +61,7 @@ const NavBar = () => {
                 </span>
               </Dropdown.Header>
               <NavLink
-                to={"/dashboard/manage-user"}
+                to={"/dashboard"}
                 className={({ isActive }) => (isActive ? "text-[#DDA15E]" : "")}
               >
                 <Dropdown.Item>Dashboard</Dropdown.Item>
