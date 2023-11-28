@@ -30,6 +30,7 @@ const ContestDetails = () => {
   if (isPending) return <MySpinner />;
 
   const {
+    _id,
     name,
     contest_description,
     details,
@@ -83,7 +84,7 @@ const ContestDetails = () => {
             <span className="font-bold">Time Left:</span>
             <Counter date={date} />
           </Para>
-          <Link className="inline-block mt-8">
+          <Link className="inline-block mt-8" to={`/payment/${_id}`}>
             <Button
               color="success"
               disabled={
@@ -97,7 +98,7 @@ const ContestDetails = () => {
         <figure className="md:flex-[3]">
           <img
             className="object-cover rounded-xl max-h-[600px] mx-auto"
-            src={img}
+            src={img || "https://i.ibb.co/jJf2wWF/user.png"}
             alt={name}
           />
         </figure>

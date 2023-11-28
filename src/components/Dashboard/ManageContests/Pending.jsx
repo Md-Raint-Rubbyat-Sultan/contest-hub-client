@@ -6,6 +6,7 @@ import { FaCheckSquare, FaSpinner } from "react-icons/fa";
 import { FaTrashCan } from "react-icons/fa6";
 import useAllPendingContests from "../../../hooks/useAllPendingContests";
 import Swal from "sweetalert2";
+import { toast } from "react-hot-toast";
 
 const Pending = () => {
   const [loading, setLoading] = useState(() => false);
@@ -14,6 +15,7 @@ const Pending = () => {
 
   if (isPending) return <MySpinner />;
 
+  // handel delete
   const handelDelete = (id) => {
     setLoading(() => true);
 
@@ -47,6 +49,20 @@ const Pending = () => {
     });
   };
 
+  // handel update
+  const handelApprove = async (id) => {
+    // console.log(id, approve);
+    try {
+      await axiosSecure.patch(`/approve-contests/${id}`, {
+        approve: "confirmed",
+      });
+      refetch();
+      toast.success("Contest is approved!");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="overflow-x-auto">
       <Table>
@@ -71,9 +87,18 @@ const Pending = () => {
               <Table.Cell>{pending?.category}</Table.Cell>
               <Table.Cell>$ {pending?.price}</Table.Cell>
               <Table.Cell>
-                <Button color="warning">
-                  <FaCheckSquare />
-                </Button>
+                {loading ? (
+                  <Button color="failure">
+                    <FaSpinner className="animate-spin" />
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={() => handelApprove(pending?._id)}
+                    color="warning"
+                  >
+                    <FaCheckSquare />
+                  </Button>
+                )}
               </Table.Cell>
               <Table.Cell>
                 {loading ? (

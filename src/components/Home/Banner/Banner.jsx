@@ -39,33 +39,47 @@ const Banner = () => {
   }, [goToNext]);
 
   return (
-    <div
-      data-aos="slide-up"
-      data-aos-duration="5000"
-      data-aos-easing="ease-in-out"
-    >
-      <div className=" flex flex-col lg:flex-row items-center gap-10">
-        <div className="space-y-8 flex-1">
-          <H1Prime custom={"text-[#283618]"}>
-            Make your career more magnificent with the contest!
-          </H1Prime>
-          <Para>
-            Ignite Your Passion for Winning! Explore Exciting Challenges, Show
-            Your Skills, and Win Prizes on Our Vibrant Platform. Join Now for a
-            World of Competitions and Fun
-          </Para>
-          <Link to={"/all-contests/?category=Article"} className="block">
-            <Button color="success" className="text-[#FEFAE0]">
-              Our Contest
-            </Button>
-          </Link>
+    <div>
+      <div className="flex justify-center items-center pb-24 w-3/4 mx-auto">
+        <input
+          type="text"
+          className="border-2 border-gray-200 rounded-s-md w-full focus:border-2 focus:border-[#283618]"
+          placeholder="Search Contest Type"
+        />
+        <div>
+          <button className="bg-[#283618] text-white font-semibold px-4 py-2 border-2 border-[#283618] hover:text-[#283618] hover:bg-white rounded-e-md">
+            Search
+          </button>
         </div>
-        <div className="flex-1 overflow-hidden relative bannerImg">
-          <figure>
-            <img className="object-cover" src={images[currentImg].img} />
-          </figure>
-          <div className="absolute left-0 right-0 top-0 bottom-0 flex justify-center items-center bg-black bg-opacity-40">
-            <H3Alt custom={""}>{images[currentImg].title}</H3Alt>
+      </div>
+      <div
+        data-aos="slide-up"
+        data-aos-duration="5000"
+        data-aos-easing="ease-in-out"
+      >
+        <div className=" flex flex-col lg:flex-row items-center gap-10">
+          <div className="space-y-8 flex-1">
+            <H1Prime custom={"text-[#283618]"}>
+              Make your career more magnificent with the contest!
+            </H1Prime>
+            <Para>
+              Ignite Your Passion for Winning! Explore Exciting Challenges, Show
+              Your Skills, and Win Prizes on Our Vibrant Platform. Join Now for
+              a World of Competitions and Fun
+            </Para>
+            <Link to={"/all-contests/?category=Article"} className="block">
+              <Button color="success" className="text-[#FEFAE0]">
+                Our Contest
+              </Button>
+            </Link>
+          </div>
+          <div className="flex-1 overflow-hidden relative bannerImg">
+            <figure>
+              <img className="object-cover" src={images[currentImg].img} />
+            </figure>
+            <div className="absolute left-0 right-0 top-0 bottom-0 flex justify-center items-center bg-black bg-opacity-40">
+              <H3Alt custom={""}>{images[currentImg].title}</H3Alt>
+            </div>
           </div>
         </div>
       </div>

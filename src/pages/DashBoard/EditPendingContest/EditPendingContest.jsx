@@ -114,7 +114,7 @@ const EditPendingContest = () => {
     <div className="space-y-6 my-6">
       <H2Prime custom={"text-center text-[#283618]"}>Edit Contest</H2Prime>
       <H3Prime custom={"text-center text-[#283618]"}>
-        You must have to change every field. Can not change image!
+        You must update one field. Can not change image!
       </H3Prime>
       <div className="border-2 border-[#283618] w-3/4 mx-auto p-8 rounded-xl shadow-lg">
         <form

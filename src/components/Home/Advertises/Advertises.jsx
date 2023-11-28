@@ -24,7 +24,7 @@ const Advertises = () => {
               <span>|</span>
               <Para>Prize: ${winner?.prize}</Para>
               <span>|</span>
-              <Para>Contest: ${winner?.name}</Para>
+              <Para>Contest: {winner?.name}</Para>
             </div>
           ))}
         </div>

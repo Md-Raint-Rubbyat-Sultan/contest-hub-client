@@ -13,6 +13,7 @@ import MyContests from "../pages/DashBoard/MyContests/MyContests";
 import AddContest from "../pages/DashBoard/AddContest/AddContest";
 import ManageContests from "../pages/DashBoard/ManageContests/ManageContests";
 import EditPendingContest from "../pages/DashBoard/EditPendingContest/EditPendingContest";
+import Payment from "../pages/Payment/Payment";
 
 export const router = createBrowserRouter([
   {
@@ -33,6 +34,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivetRoute>
             <ContestDetails />
+          </PrivetRoute>
+        ),
+      },
+      {
+        path: "payment/:id",
+        element: (
+          <PrivetRoute>
+            <Payment />
           </PrivetRoute>
         ),
       },
