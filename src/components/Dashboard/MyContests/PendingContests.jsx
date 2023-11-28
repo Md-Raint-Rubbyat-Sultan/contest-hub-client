@@ -6,6 +6,7 @@ import MySpinner from "../../Shared/Spinner/MySpinner";
 import { useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 const PendingContests = () => {
   const [loading, setLoading] = useState(() => false);
   const [pendingContests, isPending, refetch] = usePendingContests();
@@ -52,6 +53,7 @@ const PendingContests = () => {
     <div className="overflow-x-auto">
       <Table>
         <Table.Head>
+          <Table.HeadCell>#</Table.HeadCell>
           <Table.HeadCell>Contest name</Table.HeadCell>
           <Table.HeadCell>status</Table.HeadCell>
           <Table.HeadCell>Category</Table.HeadCell>
@@ -60,19 +62,25 @@ const PendingContests = () => {
           <Table.HeadCell>Delete</Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">
-          {pendingContests?.map((pending) => (
+          {pendingContests?.map((pending, idx) => (
             <Table.Row
               key={pending?._id}
               className="bg-white dark:border-gray-700 dark:bg-gray-800"
             >
+              <Table.Cell>{idx + 1}</Table.Cell>
               <Table.Cell>{pending?.name}</Table.Cell>
               <Table.Cell>{pending?.approved}</Table.Cell>
               <Table.Cell>{pending?.category}</Table.Cell>
               <Table.Cell>$ {pending?.price}</Table.Cell>
               <Table.Cell>
-                <Button color="warning">
-                  <FaEdit />
-                </Button>
+                <Link
+                  className="block"
+                  to={`/dashboard/edit-contest/${pending?._id}`}
+                >
+                  <Button color="warning">
+                    <FaEdit />
+                  </Button>
+                </Link>
               </Table.Cell>
               <Table.Cell>
                 {loading ? (

@@ -12,6 +12,7 @@ import AllUsers from "../pages/DashBoard/AllUsers/AllUsers";
 import MyContests from "../pages/DashBoard/MyContests/MyContests";
 import AddContest from "../pages/DashBoard/AddContest/AddContest";
 import ManageContests from "../pages/DashBoard/ManageContests/ManageContests";
+import EditPendingContest from "../pages/DashBoard/EditPendingContest/EditPendingContest";
 
 export const router = createBrowserRouter([
   {
@@ -65,6 +66,10 @@ export const router = createBrowserRouter([
       {
         path: "add-contest",
         element: <AddContest />,
+      },
+      {
+        path: "edit-contest/:id",
+        element: <EditPendingContest />,
       },
       // admin routes
       {

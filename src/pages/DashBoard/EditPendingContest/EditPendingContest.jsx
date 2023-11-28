@@ -1,34 +1,56 @@
+import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import {
-  Button,
-  FileInput,
-  Label,
-  Select,
-  TextInput,
-  Textarea,
-} from "flowbite-react";
+import { Button, Label, Select, TextInput, Textarea } from "flowbite-react";
 import H2Prime from "../../../components/Utils/H2Prime";
 import useAuth from "../../../hooks/useAuth";
 import { useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 import { toast } from "react-hot-toast";
-import axios from "axios";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import MySpinner from "../../../components/Shared/Spinner/MySpinner";
+import H3Prime from "../../../components/Utils/H3Prime";
 
-const imageHostingKey = import.meta.env.VITE_IMAGE_HOSTING_KEY;
-
-const AddContest = () => {
+const EditPendingContest = () => {
+  const id = useParams();
   const [loading, setLoading] = useState(() => false);
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm();
 
-  const handelContestSubmit = async (contestData) => {
+  const { isPending, data: contest } = useQuery({
+    queryKey: ["single-pending-contest"],
+    queryFn: () =>
+      axiosSecure
+        .get(`/single-pending-contest/${id?.id}`, {
+          headers: { "content-type": "application/json" },
+        })
+        .then((res) => res.data),
+    initialData: {},
+  });
+
+  if (isPending) return <MySpinner />;
+
+  const {
+    _id,
+    name,
+    contest_description,
+    details,
+    task,
+    date,
+    img,
+    price,
+    prize,
+    category,
+  } = contest;
+
+  //   console.log(contest);
+
+  const handelContestUpdate = async (contestData) => {
     setLoading(() => true);
     const price = parseFloat(contestData.price);
     const prize = parseFloat(contestData.prize);
@@ -61,6 +83,7 @@ const AddContest = () => {
 
     const contestInfo = {
       ...contestData,
+      img: img,
       price,
       prize,
       participation_count,
@@ -69,27 +92,17 @@ const AddContest = () => {
       approved,
     };
 
-    const image = { image: contestData.img[0] };
+    console.log(contestInfo);
 
     try {
-      // hosting image
-      const { data: imageURL } = await axios.post(
-        `https://api.imgbb.com/1/upload?key=${imageHostingKey}`,
-        image,
-        {
-          headers: { "content-type": "multipart/form-data" },
-        }
-      );
-
-      //   posing data
-      await axiosSecure.post("/contest/host/add-contest", {
-        ...contestInfo,
-        img: imageURL.data.display_url,
+      //   updating data
+      const { data } = await axiosSecure.put(`/pending/${_id}`, {
+        contestInfo,
       });
 
-      reset();
+      console.log(data);
 
-      toast.success(`${contestData.name} is now pending!`);
+      toast.success(`${contestData.name} is updated!`);
     } catch (err) {
       console.log(err);
     } finally {
@@ -99,10 +112,13 @@ const AddContest = () => {
 
   return (
     <div className="space-y-6 my-6">
-      <H2Prime custom={"text-center text-[#283618]"}>Add A New Contest</H2Prime>
+      <H2Prime custom={"text-center text-[#283618]"}>Edit Contest</H2Prime>
+      <H3Prime custom={"text-center text-[#283618]"}>
+        You must have to change every field. Can not change image!
+      </H3Prime>
       <div className="border-2 border-[#283618] w-3/4 mx-auto p-8 rounded-xl shadow-lg">
         <form
-          onSubmit={handleSubmit(handelContestSubmit)}
+          onSubmit={handleSubmit(handelContestUpdate)}
           className="flex w-full mx-auto flex-col gap-4"
         >
           <div className="flex flex-col lg:flex-row items-center gap-4">
@@ -113,6 +129,7 @@ const AddContest = () => {
               <TextInput
                 id="name"
                 type="text"
+                defaultValue={name}
                 placeholder="Contest"
                 {...register("name", { required: true })}
               />
@@ -125,13 +142,10 @@ const AddContest = () => {
                 <Label htmlFor="categories" value="Category" />
               </div>
               <Select
-                defaultValue={"default"}
+                defaultValue={category}
                 id="categories"
                 {...register("category", { required: true })}
               >
-                <option value="default" disabled>
-                  Choose category
-                </option>
                 <option value="Article">Article</option>
                 <option value="Medical Contest">Medical Contest</option>
                 <option value="Business Contest">Business Contest</option>
@@ -147,6 +161,7 @@ const AddContest = () => {
               <TextInput
                 id="price"
                 type="text"
+                defaultValue={price}
                 placeholder="$$$"
                 {...register("price", { required: true })}
               />
@@ -161,6 +176,7 @@ const AddContest = () => {
               <TextInput
                 id="prize"
                 type="text"
+                defaultValue={prize}
                 placeholder="$$$"
                 {...register("prize", { required: true })}
               />
@@ -169,35 +185,21 @@ const AddContest = () => {
               )}
             </div>
           </div>
-          <div className="flex flex-col lg:flex-row items-center gap-4">
-            <div className="w-full">
-              <div className="mb-2 block">
-                <Label htmlFor="date" value="Date" />
-              </div>
-              <input
-                className="w-full bg-gray-50 border-2 border-gray-200 rounded-lg"
-                type="date"
-                id="date"
-                min={new Date().toISOString().split("T")[0]}
-                {...register("date", { required: true })}
-              />
-              {errors.date && (
-                <span className="text-red-600">This field is required</span>
-              )}
+          <div className="w-full">
+            <div className="mb-2 block">
+              <Label htmlFor="date" value="Date" />
             </div>
-            <div id="fileUpload" className="w-full">
-              <div className="mb-2 block">
-                <Label htmlFor="image" value="Upload image" />
-              </div>
-              <FileInput
-                id="image"
-                accept="image/*"
-                {...register("img", { required: true })}
-              />
-              {errors.img && (
-                <span className="text-red-600">This field is required</span>
-              )}
-            </div>
+            <input
+              className="w-full bg-gray-50 border-2 border-gray-200 rounded-lg"
+              type="date"
+              defaultValue={date}
+              id="date"
+              min={new Date().toISOString().split("T")[0]}
+              {...register("date", { required: true })}
+            />
+            {errors.date && (
+              <span className="text-red-600">This field is required</span>
+            )}
           </div>
           <div className="w-full">
             <div className="mb-2 block">
@@ -205,6 +207,7 @@ const AddContest = () => {
             </div>
             <Textarea
               id="task"
+              defaultValue={task}
               placeholder=""
               rows={4}
               {...register("task", { required: true })}
@@ -219,6 +222,7 @@ const AddContest = () => {
             </div>
             <Textarea
               id="details"
+              defaultValue={details}
               placeholder=""
               {...register("details", { required: true })}
               rows={4}
@@ -233,6 +237,7 @@ const AddContest = () => {
             </div>
             <Textarea
               id="description"
+              defaultValue={contest_description}
               placeholder=""
               {...register("contest_description", { required: true })}
               rows={4}
@@ -242,7 +247,7 @@ const AddContest = () => {
             )}
           </div>
           <Button type="submit" color="success">
-            {loading ? <FaSpinner className="animate-spin" /> : "Add Contest"}
+            {loading ? <FaSpinner className="animate-spin" /> : "Update"}
           </Button>
         </form>
       </div>
@@ -250,4 +255,4 @@ const AddContest = () => {
   );
 };
 
-export default AddContest;
+export default EditPendingContest;
