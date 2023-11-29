@@ -1,8 +1,12 @@
-# React + Vite
+# Contest | Hub
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Features
 
-Currently, two official plugins are available:
+- server is made of mongoose
+- express Router is applied to separate the routes according to there field of work.
+- Flow bite tailwind css library is used in front-end.
+- Admin, Host/Creator and User can use the same site with different look and view.
+- User can visualize there performance and update there profile.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Live Site: ](https://contest-hub-aaa97.web.app/)
+- [Server side: ](https://contest-hub-server-six.vercel.app/health)
