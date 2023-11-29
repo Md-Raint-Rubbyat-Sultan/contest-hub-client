@@ -25,7 +25,8 @@ const Payment = () => {
 
   if (isPending) return <MySpinner />;
 
-  const { _id, price, participation_count, name, category, date } = contest;
+  const { _id, price, participation_count, name, category, date, prize } =
+    contest;
   console.log(contest);
 
   return (
@@ -36,6 +37,7 @@ const Payment = () => {
           <Elements stripe={stripePromise}>
             <CardElementToPay
               price={price}
+              prize={prize}
               _id={_id}
               participation_count={participation_count}
               name={name}

@@ -99,7 +99,7 @@ const DashBoardNavBar = () => {
               className={({ isActive }) =>
                 (isActive ? "text-white" : "") + " flex items-center gap-2"
               }
-              to={"/dashboard/reservation"}
+              to={"/dashboard/win-contest"}
             >
               <FaTrophy />
               win contest
@@ -111,10 +111,10 @@ const DashBoardNavBar = () => {
               className={({ isActive }) =>
                 (isActive ? "text-white" : "") + " flex items-center gap-2"
               }
-              to={"/dashboard/payment-history"}
+              to={"/dashboard/participate-contest"}
             >
               <FaRegWindowMaximize />
-              Participate
+              Participate contest
             </NavLink>
           </li>
         </>

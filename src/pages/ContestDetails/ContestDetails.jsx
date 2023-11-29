@@ -9,25 +9,34 @@ import { Button } from "flowbite-react";
 import Counter from "../../components/ContestDetail/Counter/Counter";
 import useIsAdmin from "../../hooks/useIsAdmin";
 import useIsHost from "../../hooks/useIsHost";
+import useAuth from "../../hooks/useAuth";
 
 const ContestDetails = () => {
   const id = useParams();
+  const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [isAdmin] = useIsAdmin();
   const [isHost] = useIsHost();
 
+  const { data: paymentInfo, isLoading } = useQuery({
+    queryKey: ["single-payment-info"],
+    enabled: user === null ? false : true,
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(
+        `/single-payment-info/?email=${user?.email}&id=${id?.id}`
+      );
+      return data;
+    },
+  });
+
   const { isPending, data: contest } = useQuery({
     queryKey: ["single-contest"],
     queryFn: () =>
-      axiosSecure
-        .get(`/single-contest/${id?.id}`, {
-          headers: { "content-type": "application/json" },
-        })
-        .then((res) => res.data),
+      axiosSecure.get(`/single-contest/${id?.id}`).then((res) => res.data),
     initialData: {},
   });
 
-  if (isPending) return <MySpinner />;
+  if (isPending || isLoading) return <MySpinner />;
 
   const {
     _id,
@@ -44,7 +53,7 @@ const ContestDetails = () => {
     category,
   } = contest;
 
-  // console.log(winner);
+  // console.log(paymentInfo);
 
   return (
     <div className="space-y-24 mb-24">
@@ -70,7 +79,7 @@ const ContestDetails = () => {
               <figure>
                 <img
                   className="w-20 h-20 rounded-full"
-                  src={winner?.img}
+                  src={winner?.img || "https://i.ibb.co/jJf2wWF/user.png"}
                   alt={winner?.name}
                 />
               </figure>
@@ -88,7 +97,9 @@ const ContestDetails = () => {
             <Button
               color="success"
               disabled={
-                winner?.name !== "none" || isAdmin || isHost ? true : false
+                paymentInfo || winner?.name !== "none" || isAdmin || isHost
+                  ? true
+                  : false
               }
             >
               Registration
@@ -98,7 +109,7 @@ const ContestDetails = () => {
         <figure className="md:flex-[3]">
           <img
             className="object-cover rounded-xl max-h-[600px] mx-auto"
-            src={img || "https://i.ibb.co/jJf2wWF/user.png"}
+            src={img}
             alt={name}
           />
         </figure>

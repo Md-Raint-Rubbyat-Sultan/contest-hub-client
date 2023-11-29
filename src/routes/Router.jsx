@@ -14,6 +14,9 @@ import AddContest from "../pages/DashBoard/AddContest/AddContest";
 import ManageContests from "../pages/DashBoard/ManageContests/ManageContests";
 import EditPendingContest from "../pages/DashBoard/EditPendingContest/EditPendingContest";
 import Payment from "../pages/Payment/Payment";
+import UserProfile from "../pages/DashBoard/UserProfile/UserProfile";
+import ParticipateContest from "../pages/DashBoard/participateContest/participateContest";
+import WinContest from "../components/Dashboard/WinContest/WinContest";
 
 export const router = createBrowserRouter([
   {
@@ -66,6 +69,15 @@ export const router = createBrowserRouter([
       // user routes
       {
         path: "user-profile",
+        element: <UserProfile />,
+      },
+      {
+        path: "participate-contest",
+        element: <ParticipateContest />,
+      },
+      {
+        path: "win-contest",
+        element: <WinContest />,
       },
       // host routes
       {

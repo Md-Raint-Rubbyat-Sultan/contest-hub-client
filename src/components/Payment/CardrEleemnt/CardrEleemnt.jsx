@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 const CardElementToPay = ({
   price,
+  prize,
   _id,
   participation_count,
   name,
@@ -39,7 +40,7 @@ const CardElementToPay = ({
 
   if (isPending) return <MySpinner />;
 
-  console.log(clientSecret);
+  //   console.log(clientSecret);
 
   const handleSubmitPayment = async (e) => {
     setLoading(() => true);
@@ -93,11 +94,12 @@ const CardElementToPay = ({
     } else {
       setError(() => setError(() => ""));
       if (paymentIntent.status === "succeeded") {
-        console.log(paymentIntent.id);
+        // console.log(paymentIntent.id);
         axiosSecure
           .post("/payment-info", {
             transactionId: paymentIntent.id,
             price: parseFloat(price),
+            prize: parseFloat(prize),
             userEmail: user?.email,
             userName: user?.displayName,
             userImg: user?.photoURL,
@@ -168,6 +170,7 @@ const CardElementToPay = ({
 
 CardElementToPay.propTypes = {
   price: PropTypes.number.isRequired,
+  prize: PropTypes.number.isRequired,
   _id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,

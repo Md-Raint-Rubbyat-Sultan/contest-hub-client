@@ -57,7 +57,7 @@ const Login = () => {
     try {
       const { user } = await loginWithGoogle();
       if (user) {
-        const { data: userInfo } = await axiosPublic.post("/users", {
+        await axiosPublic.post("/users", {
           name: user.displayName,
           email: user.email,
           img: user.photoURL,

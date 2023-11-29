@@ -44,7 +44,7 @@ const Register = () => {
       const { user } = await createUser(email, password);
       if (user) {
         await updateUserProfile(profile);
-        const { data: userInfo } = await axiosPublic.post("/users", {
+        await axiosPublic.post("/users", {
           name,
           email,
           img: photo,
@@ -74,7 +74,7 @@ const Register = () => {
     try {
       const { user } = await loginWithGoogle();
       if (user) {
-        const { data: userInfo } = await axiosPublic.post("/users", {
+        await axiosPublic.post("/users", {
           name: user.displayName,
           email: user.email,
           img: user.photoURL,
