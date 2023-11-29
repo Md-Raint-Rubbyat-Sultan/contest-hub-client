@@ -25,7 +25,7 @@ const Payment = () => {
 
   if (isPending) return <MySpinner />;
 
-  const { _id, price, participation_count, name, category, date, prize } =
+  const { _id, price, participation_count, name, category, date, prize, task } =
     contest;
   console.log(contest);
 
@@ -43,6 +43,7 @@ const Payment = () => {
               name={name}
               category={category}
               date={date}
+              task={task}
             />
           </Elements>
         </div>

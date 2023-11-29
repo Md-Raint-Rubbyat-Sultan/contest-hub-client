@@ -18,6 +18,7 @@ const CardElementToPay = ({
   name,
   category,
   date,
+  task,
 }) => {
   const { user } = useAuth();
   const stripe = useStripe();
@@ -108,6 +109,7 @@ const CardElementToPay = ({
             contestName: name,
             category: category,
             contestDate: date,
+            task: task,
           })
           .then((res) => {
             if (res.data?.contestId) {
@@ -173,6 +175,7 @@ CardElementToPay.propTypes = {
   prize: PropTypes.number.isRequired,
   _id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  task: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   participation_count: PropTypes.number.isRequired,

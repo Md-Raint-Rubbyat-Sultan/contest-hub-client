@@ -1,11 +1,14 @@
 import { Button, Table } from "flowbite-react";
 import useHostConfirmed from "../../../hooks/useHostConfirmed";
 import MySpinner from "../../Shared/Spinner/MySpinner";
+import { Link } from "react-router-dom";
 
 const ConfirmedContests = () => {
   const [confirmedContestFoHost, isPending] = useHostConfirmed();
 
   if (isPending) return <MySpinner />;
+
+  const today = new Date();
 
   //   console.log(confirmedContestFoHost);
   return (
@@ -33,7 +36,20 @@ const ConfirmedContests = () => {
               <Table.Cell>{contest?.category}</Table.Cell>
               <Table.Cell>$ {contest?.price}</Table.Cell>
               <Table.Cell>
-                <Button>See Submission</Button>
+                <Link to={`/dashboard/submission/${contest?._id}`}>
+                  <Button
+                    disabled={
+                      contest?.winner?.name !== "none" ||
+                      new Date(contest?.date) > today
+                    }
+                  >
+                    {contest?.winner?.name !== "none"
+                      ? "Winner Is Selected"
+                      : new Date(contest?.date) > today
+                      ? "Still Have Time"
+                      : "See Submission"}
+                  </Button>
+                </Link>
               </Table.Cell>
             </Table.Row>
           ))}

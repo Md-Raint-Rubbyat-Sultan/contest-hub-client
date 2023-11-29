@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import MySpinner from "../../Shared/Spinner/MySpinner";
+import MySpinner from "../../../components/Shared/Spinner/MySpinner";
 import { Table } from "flowbite-react";
-import H2Prime from "../../Utils/H2Prime";
+import H2Prime from "../../../components/Utils/H2Prime";
 
 const WinContest = () => {
   const { user } = useAuth();
@@ -47,7 +47,7 @@ const WinContest = () => {
                   key={_win?._id}
                   className="bg-white dark:border-gray-700 dark:bg-gray-800"
                 >
-                  <Table.Cell>{_win?.contestName}</Table.Cell>
+                  <Table.Cell>{_win?.name}</Table.Cell>
                   <Table.Cell>{_win?.category}</Table.Cell>
                   <Table.Cell>$ {_win?.prize}</Table.Cell>
                 </Table.Row>

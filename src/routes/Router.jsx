@@ -16,7 +16,8 @@ import EditPendingContest from "../pages/DashBoard/EditPendingContest/EditPendin
 import Payment from "../pages/Payment/Payment";
 import UserProfile from "../pages/DashBoard/UserProfile/UserProfile";
 import ParticipateContest from "../pages/DashBoard/participateContest/participateContest";
-import WinContest from "../components/Dashboard/WinContest/WinContest";
+import WinContest from "../pages/DashBoard/WinContest/WinContest";
+import Submission from "../pages/DashBoard/Submission/Submission";
 
 export const router = createBrowserRouter([
   {
@@ -91,6 +92,10 @@ export const router = createBrowserRouter([
       {
         path: "edit-contest/:id",
         element: <EditPendingContest />,
+      },
+      {
+        path: "submission/:id",
+        element: <Submission />,
       },
       // admin routes
       {
